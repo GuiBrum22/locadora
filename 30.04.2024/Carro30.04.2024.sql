@@ -1,12 +1,18 @@
 -- Tabela Carro
+-- Tabela Carro
 CREATE TABLE Carro (
-    Id_carro INT PRIMARY KEY,
-    Modelo VARCHAR(255),
-    Placa VARCHAR(20),
-    Ano INT,
-    Tipo VARCHAR(50),
-    Disponibilidade BOOLEAN
+    Id_carro SERIAL PRIMARY KEY,
+    Modelo VARCHAR(100) NOT NULL,
+    Placa VARCHAR(10) UNIQUE NOT NULL,
+    Ano INT NOT NULL,
+    Tipo VARCHAR(50) NOT NULL,
+    Disponibilidade BOOLEAN DEFAULT TRUE
 );
+
+ALTER TABLE Carro ADD COLUMN potencia VARCHAR(50);
+ALTER TABLE Carro ADD COLUMN motor VARCHAR(50);
+ALTER TABLE Carro ADD COLUMN imagem VARCHAR(255);
+
 
 -- Tabela Cliente
 CREATE TABLE Cliente (
@@ -87,7 +93,14 @@ CREATE TABLE Faz (
     FOREIGN KEY(Id_manutencao) REFERENCES Manutencao(Id_manutencao),
     FOREIGN KEY(Id_carro) REFERENCES Carro(Id_carro)
 );
-
+CREATE TABLE Feedback (
+    Id_feedback SERIAL PRIMARY KEY,
+    Id_cliente INT,
+    Comentario TEXT,
+    Avaliacao INT CHECK (Avaliacao >= 1 AND Avaliacao <= 5),
+    Data_feedback DATE,
+    FOREIGN KEY(Id_cliente) REFERENCES Cliente(Id_cliente)
+);
 -- Tabela Registra
 CREATE TABLE Registra (
     Id_registra INT PRIMARY KEY,
@@ -96,6 +109,22 @@ CREATE TABLE Registra (
     FOREIGN KEY(Id_feedback) REFERENCES Feedback(Id_feedback),
     FOREIGN KEY(Id_cliente) REFERENCES Cliente(Id_cliente)
 );
+
+CREATE TABLE Reserva (
+    id SERIAL PRIMARY KEY,
+    id_carro INT NOT NULL,
+    data_reserva DATE NOT NULL,
+    FOREIGN KEY (id_carro) REFERENCES Carro(id_carro)
+);
+
+
+INSERT INTO Carro (modelo, placa, ano, tipo, disponibilidade, potencia, motor, imagem) VALUES
+('Ferrari F8', 'ABC1234', 2020, 'Esportivo', TRUE, '710 hp', '3.9L V8', 'images/ferrari_f8.jpg'),
+('Porsche 911', 'DEF5678', 2019, 'Esportivo', TRUE, '443 hp', '3.0L H6', 'images/porsche_911.jpg'),
+('Lamborghini Huracan', 'GHI9101', 2021, 'Esportivo', FALSE, '631 hp', '5.2L V10', 'images/lamborghini_huracan.jpg'),
+('McLaren 720S', 'JKL2345', 2022, 'Esportivo', TRUE, '710 hp', '4.0L V8', 'images/mclaren_720s.jpg');
+
+
 -- Selecione todos os clientes cadastrados na locadora.
 SELECT * FROM Cliente;
 
