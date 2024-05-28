@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carros e Manutenção</title>
+</head>
+<body>
+    <h1>Carros e Manutenção</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Carro</th>
+                <th>Última Manutenção</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="carro : ${carros}">
+                <td th:text="${carro.modelo}"></td>
+                <td>
+                    <span th:if="${carro.manutencao != null}" th:text="${carro.manutencao.dataManutencao}"></span>
+                    <span th:if="${carro.manutencao == null}">Sem manutenção</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

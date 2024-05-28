@@ -13,7 +13,6 @@ ALTER TABLE Carro ADD COLUMN potencia VARCHAR(50);
 ALTER TABLE Carro ADD COLUMN motor VARCHAR(50);
 ALTER TABLE Carro ADD COLUMN imagem VARCHAR(255);
 
-
 -- Tabela Cliente
 CREATE TABLE Cliente (
     Id_cliente SERIAL PRIMARY KEY,
@@ -116,13 +115,6 @@ CREATE TABLE Reserva (
     data_reserva DATE NOT NULL,
     FOREIGN KEY (id_carro) REFERENCES Carro(id_carro)
 );
-
-
-INSERT INTO Carro (modelo, placa, ano, tipo, disponibilidade, potencia, motor, imagem) VALUES
-('Ferrari F8', 'ABC1234', 2020, 'Esportivo', TRUE, '710 hp', '3.9L V8', 'images/ferrari_f8.jpg'),
-('Porsche 911', 'DEF5678', 2019, 'Esportivo', TRUE, '443 hp', '3.0L H6', 'images/porsche_911.jpg'),
-('Lamborghini Huracan', 'GHI9101', 2021, 'Esportivo', FALSE, '631 hp', '5.2L V10', 'images/lamborghini_huracan.jpg'),
-('McLaren 720S', 'JKL2345', 2022, 'Esportivo', TRUE, '710 hp', '4.0L V8', 'images/mclaren_720s.jpg');
 
 
 -- Selecione todos os clientes cadastrados na locadora.
