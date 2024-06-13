@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Reserva</title>
+    <link rel="stylesheet" href="/css/liststyle.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-content {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <h1>Editar Reserva</h1>
+        <form th:object="${reserva}" method="post" th:action="@{/editar-reserva/{idReserva}(idReserva=${reserva.idReserva})}">
+            <input type="hidden" id="idReserva" name="idReserva" th:value="${reserva.idReserva}">
+            
+            <label for="localRetirada">Local de Retirada:</label>
+            <input type="text" id="localRetirada" th:field="*{localRetirada}">
+            
+            <label for="dataRetirada">Data de Retirada:</label>
+            <input type="date" id="dataRetirada" th:field="*{dataRetirada}">
+            
+            <label for="dataDevolu">Data de Devolução:</label>
+            <input type="date" id="dataDevolu" th:field="*{dataDevolu}">
+            
+            <input type="submit" value="Salvar Alterações">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Reservas</title>
+    <link rel="stylesheet" href="/css/liststyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-content {
+            background-color: #ffffff;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        thead th {
+            padding: 10px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #ddd;
+        }
+
+        tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions a {
+            color: #000000;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .actions a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        .actions .edit {
+            background-color: #189b4a;
+        }
+
+        .actions .edit:hover {
+            background-color: #189b4a;
+        }
+
+        .actions .delete {
+            background-color: #dc3545;
+        }
+
+        .actions .delete:hover {
+            background-color: #c82333;
+        }
+
+        i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <h1>Lista de Reservas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Modelo do Carro</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Local de Retirada</th>
+                    <th>Data de Retirada</th>
+                    <th>Data de Devolução</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reserva : ${reservas}">
+                    <td th:text="${reserva.idReserva}"></td>
+                    <td th:text="${reserva.cliente.nome}"></td>
+                    <td th:text="${reserva.carro.modelo}"></td>
+                    <td th:text="${reserva.cliente.telefone}"></td>
+                    <td th:text="${reserva.cliente.email}"></td>
+                    <td th:text="${reserva.localRetirada}"></td>
+                    <td th:text="${#dates.format(reserva.dataRetirada, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#dates.format(reserva.dataDevolu, 'dd/MM/yyyy')}"></td>
+                    <td class="actions">
+                        <a th:href="@{/edita-reserva/{idReserva}(idReserva=${reserva.idReserva})}" class="edit" title="Editar">
+                            <i class="fas fa-pencil-alt"></i> Editar
+                        </a>
+                        <a th:href="@{/deletar-reserva/{idReserva}(idReserva=${reserva.idReserva})}" class="delete" title="Excluir">
+                            <i class="fas fa-times"></i> Excluir
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
